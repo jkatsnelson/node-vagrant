@@ -1,0 +1,28 @@
+description "node.js server"
+author      "kvz - http://kevin.vanzonneveld.net"
+
+# used to be: start on startup
+# until we found some mounts weren't ready yet while booting:
+start on started mountall
+stop on shutdown
+
+# Automatically Respawn:
+respawn
+respawn limit 99 5
+
+# What environment are we in
+env NODE_ENV=<%= node.app.environment %>
+env NODE_HOME=<%= node.app_root %>
+
+pre-start script
+    sudo -E sh -c 'echo env=$NODE_ENV home=$NODE_HOME > /var/log/node/node.log 2>&1'
+end script
+
+script
+    cd $NODE_HOME
+    sudo -E sh -c "exec sudo -u node NODE_ENV=$NODE_ENV /usr/local/bin/<%= node.app.environment == "development" ? "nodemon --debug -L -e js,dust --watch server --watch app/templates" : "node" %> $NODE_HOME/server/server.js > /var/log/node/node.log 2>&1"
+end script
+
+post-start script
+  sudo -E sh -c "echo 'Node started...' > /var/log/node/node.log 2>&1"
+end script

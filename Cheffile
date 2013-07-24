@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+#^syntax detection
+
+site 'http://community.opscode.com/api/v1'
+
+cookbook "monit", :git => "https://github.com/apsoto/monit.git"
+cookbook "node-server", :path => "./site-cookbooks/node-server"
+cookbook "apache2", :git => "https://github.com/opscode-cookbooks/apache2.git"
+
+# cookbook 'rvm',
+#   :git => 'https://github.com/fnichol/chef-rvm'
+
+# cookbook 'postgresql',
+#   :git => 'https://github.com/findsyou/cookbooks',
+#   :ref => 'postgresql-improvements'
