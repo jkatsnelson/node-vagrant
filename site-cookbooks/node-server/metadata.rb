@@ -12,4 +12,4 @@ depends         "nodejs", "= 1.1.2"
 depends         "yum", "= 2.2.0"
 depends         "varnish", "= 0.9.4"
 # Need to pull monit from Github
-# depends         "monit", "= 0.7.0"
+depends         "monit", "= 0.7.0"
